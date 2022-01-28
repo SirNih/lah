@@ -44,7 +44,7 @@ async function startzeroyt7() {
 const zeroyt7 = makeWASocket({
 logger: pino({ level: 'silent' }),
 printQRInTerminal: true,
-browser: ['Zero YT7 Multi Device','Safari','1.0.0'],
+browser: ['友Abyss Bot Multi Device','Safari','1.0.0'],
 auth: state
 })
 
