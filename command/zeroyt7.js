@@ -37,6 +37,7 @@ var speed = require('performance-now')
 var { performance } = require('perf_hooks')
 var { smsg, getGroupAdmins, formatp, tanggal, formatDate, getTime, isUrl, sleep, clockString, runtime, fetchJson, getBuffer, jsonformat, delay, format, logic, generateProfilePicture, parseMention, getRandom } = require('../message/myfunc')
 var database = require('../json/database.json')
+var { jadibot, stopjadibot, listjadibot } = require('../json/jadibot.js')
 var simbol = '»'
 var setting = require('../json/setting.json')
 let {
@@ -172,7 +173,8 @@ ${simbol} ${prefix}eval
 ${simbol} ${prefix}public
 ${simbol} ${prefix}self
 ${simbol} ${prefix}ping
-${simbol} ${prefix}owner`
+${simbol} ${prefix}owner
+${simbol} ${prefix}jadibot`
 let message = await prepareWAMessageMedia({ image: fs.readFileSync('./image/zeroyt7.jpg') }, { upload: zeroyt7.waUploadToServer })
 const template = generateWAMessageFromContent(m.chat, proto.Message.fromObject({
 templateMessage: {
@@ -456,10 +458,28 @@ await zeroyt7.updateBlockStatus(users, 'unblock').then((res) => m.reply(jsonform
 }
 break
 case 'sc': {
-m.reply('https://github.com/Zero-YT7/BaseMD-ZeroYT7')
+m.reply('cari sendiri')
 }
 break
-
+case "jadibot":
+if (!isCreator) return m.reply(mess.owner)
+        jadibot(reply)
+        break
+      case "stopjadibot":
+        if (!isCreator) return m.reply(mess.owner)
+          return reply("tidak bisa stopjadibot kecuali owner")
+        stopjadibot(reply)
+        break
+      case "listbot":
+        let tekss = "「 *LIST JADIBOT* 」\n"
+        for (let i of listjadibot) {
+          tekss += `*Nomor* : ${i.jid.split("@")[0]}
+*Nama* : ${i.name}
+*Device* : ${i.phone.device_manufacturer}
+*Model* : ${i.phone.device_model}\n\n`
+        }
+        reply(tekss)
+        break
 //━━━━━━━━━━━━━━━[ AKHIR FITUR ]━━━━━━━━━━━━━━━━━//
 
 default:
